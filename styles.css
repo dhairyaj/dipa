@@ -18,12 +18,19 @@ i {
 .container {
     width: 65%;
     height: 700px;
-    margin: 10% auto 0;
+    margin: 3% auto 0;
     padding: 3%;
     background-color: rgb(255, 255, 255);
     border: 5px solid rgb(216, 216, 40);
     border-radius: 10px;
+    overflow-y: scroll;
 }
+
+/* Hide scroll bar for Chrome, Safari, newer versions of Opera */
+.container::-webkit-scrollbar { width: 0 !important }
+
+/* Hide scroll bar for Firefox */
+.container { overflow: -moz-scrollbars-none; }
 
 .addTask {
     display: flex;
