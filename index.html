@@ -23,67 +23,49 @@
 <body>
     <h1 class="text-center mt-5">DiPA - Digital Personal Assistant</h1>
     <div class="container">
-        <div class="addTask mt-2 mb-4">
+        <div class="addTask mt-2 mb-4" data-bs-toggle="modal" data-bs-target="#addtaskPopup">
             <span>Add New Task</span>
-            <i class="fa-solid fa-plus" data-bs-toggle="modal" data-bs-target="#addtaskPopup"></i>
+            <i class="fa-solid fa-plus"></i>
         </div>
-        <div class="modal fade" id="addtaskPopup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        <form class="modal fade" id="addtaskPopup" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="addtaskPopupLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="addtaskPopupLabel">What would you like to accomplish?</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" id="closeSign" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form>
                             <div class="mb-3">
                               <label for="taskname" class="form-label">Enter your goal</label>
                               <input type="text" class="form-control" id="taskname">
+                              <div class="text-danger" id="errorText"></div>
                             </div>
                             <div class="mb-3">
                                 <label for="taskduedate" class="form-label">Need to complete by</label>
                                 <input type="date" class="form-control" id="taskduedate">
+                                <div class="text-danger" id="errorDate"></div>
                               </div>
-                          </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nevermind</button>
-                        <button type="button" class="btn btn-primary">Let's get to it</button>
+                        <button type="button" id="closeBtn" class="btn btn-secondary" data-bs-dismiss="modal">Nevermind</button>
+                        <button type="submit" id="appendBtn" class="btn btn-primary">Let's get to it</button>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
 
-        <div class="tasks">
+        <div id="tasks">
             <h4 class="mb-4 text-center"><u>&nbsp&nbspTask List&nbsp&nbsp</u></h4>
-            <div class="task">
-                <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam voluptatem architecto magni at
-                    excepturi et. Vero, laboriosam molestiae neque libero odit hic reiciendis eveniet doloremque, fugit,
-                    eum eligendi voluptates tempora.</span>
-                <span class="text-muted">Due by: </span>
-                <hr>
-                <div class="options">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                    <i class="fa-solid fa-trash-can"></i>
-                </div>
-            </div>
-            <div class="task">
-                <span>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corrupti optio perspiciatis, quas
-                    impedit a odit quidem! Quasi explicabo sequi magni eius recusandae veniam officiis ex sint.
-                    Voluptatem quae nam sequi.</span>
-                <span class="text-muted">Due by: </span>
-                <hr>
-                <div class="options">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                    <i class="fa-solid fa-trash-can"></i>
-                </div>
-            </div>
         </div>
     </div>
+    <!--Bootstrap Bundled JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous">
+    </script>]
+    <!--Custom JS-->
+    <script src="index.js"></script>
 </body>
 
 </html>
