@@ -57,37 +57,48 @@ let formValdiation = () => {
     }
 }
 
-let taskList = {};
+let taskList = [];
 
 let acceptData = () => {
-    taskList["goal"] = taskName.value;
-    taskList["dueDate"] = taskDueDate.value;
+    taskList.push({
+        goal: taskName.value,
+        dueDate: taskDueDate.value,
+    });
+    console.log(taskList);
+
+    localStorage.setItem("taskList", JSON.stringify(taskList));
     updateTasks();
 }
 
 let updateTasks = () => {
-    tasks.innerHTML += `<div class="task">
-            <span>${taskList.goal}</span>
-            <span class="text-muted">${taskList.dueDate}</span>
+    tasks.innerHTML = "";
+    taskList.map((task, index) => {
+        return(
+            tasks.innerHTML += `<div id=${index} class="task">
+            <span>${task.goal}</span>
+            <span class="text-muted">${task.dueDate}</span>
             <hr>
             <div class="options">
                 <i data-bs-toggle="modal" data-bs-target="#addtaskPopup" onClick = "editTask(this)" class="fa-solid fa-pen-to-square"></i>
-                <i onClick = "deleteTask(this)" class="fa-solid fa-trash-can"></i>
+                <i onClick = "deleteTask(this); updateTasks();" class="fa-solid fa-trash-can"></i>
             </div>
-        </div>`;
+        </div>`
+        )
+    })
     resetForm();
 }
 
 let deleteTask = (e) => {
     e.parentElement.parentElement.remove();
+    taskList.splice(e.parentElement.parentElement.id, 1);
+    localStorage.setItem("taskList", JSON.stringify(taskList));
 }
 
 let editTask = (e) => {
     let selectedTask = e.parentElement.parentElement;
     taskName.value = selectedTask.children[0].innerText;
     taskDueDate.value = selectedTask.children[1].innerText;
-    console.log(selectedTask.children[1]);
-    e.parentElement.parentElement.remove();
+    deleteTask(e);
 }
 
 let resetForm = () => {
@@ -101,3 +112,8 @@ let resetOnClose = () => {
     taskError.innerText = "";
     dateError.innerText = "";
 }
+
+(() => {
+    taskList = JSON.parse(localStorage.getItem("taskList")) || [];
+    updateTasks();
+})()
