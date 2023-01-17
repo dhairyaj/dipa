@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
-function CreateTaskModal({ modal, toggle }) {
+function CreateTaskModal({ modal, toggle, saveTask }) {
 
     const [taskTitle, settaskTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -18,6 +18,13 @@ function CreateTaskModal({ modal, toggle }) {
             }
         }
     };
+
+    const handleSaveTask = () => {
+        let taskObj = {};
+        taskObj["title"] = taskTitle;
+        taskObj["description"] = description;
+        saveTask(taskObj);
+    }
 
     return (
         <div>
@@ -36,7 +43,7 @@ function CreateTaskModal({ modal, toggle }) {
                     </Form>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={toggle}>
+                    <Button color="primary" onClick={handleSaveTask}>
                         Create
                     </Button>{' '}
                     <Button color="secondary" onClick={toggle}>
