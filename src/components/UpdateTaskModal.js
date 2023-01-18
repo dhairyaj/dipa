@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
-function CreateTaskModal({ modal, toggle, saveTask }) {
+function UpdateTaskModal({ modal, toggle, taskObj ,updateTask }) {
 
     const [taskTitle, settaskTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -19,21 +19,27 @@ function CreateTaskModal({ modal, toggle, saveTask }) {
         }
     };
 
-    const handleSaveTask = () => {
-        const taskObj = {
-            id: new Date().getTime().toString(),
+    const handleUpdate = (e) => {
+        e.preventDefault();
+        const updateTaskObj = {
+            id: taskObj.id,
             title: taskTitle,
             description: description
         };
-        saveTask(taskObj);
+        updateTask(updateTaskObj);
         settaskTitle("");
         setDescription("");
     }
 
+    useEffect(() => {
+        settaskTitle(taskObj.title);
+        setDescription(taskObj.description);
+    }, []);
+
     return (
         <div>
             <Modal isOpen={modal} toggle={toggle} backdrop="static">
-                <ModalHeader toggle={toggle}>Create Task</ModalHeader>
+                <ModalHeader toggle={toggle}>Update Task</ModalHeader>
                 <ModalBody>
                     <Form>
                         <Form.Group className="mb-3">
@@ -47,8 +53,8 @@ function CreateTaskModal({ modal, toggle, saveTask }) {
                     </Form>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={handleSaveTask}>
-                        Create
+                    <Button color="primary" onClick={handleUpdate}>
+                        Update
                     </Button>{' '}
                     <Button color="secondary" onClick={toggle}>
                         Cancel
@@ -59,4 +65,4 @@ function CreateTaskModal({ modal, toggle, saveTask }) {
     )
 }
 
-export default CreateTaskModal
+export default UpdateTaskModal

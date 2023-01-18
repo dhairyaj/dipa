@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CreateTaskModal from './CreateTaskModal';
-import { CreateTask, Header } from './StyledComponents';
+import { CreateTask, Header, TaskContainer } from './StyledComponents';
+import TaskItemCard from './TaskItemCard';
 
 function TaskList() {
 
@@ -9,9 +10,34 @@ function TaskList() {
 
     const [taskList, setTaskList] = useState([]);
 
+    useEffect(() => {
+        if(localStorage.getItem("taskList")) {
+            setTaskList(JSON.parse([localStorage.getItem("taskList")]));
+        }
+    }, []);
+
     const saveTask = (task) => {
-        setTaskList([...taskList, task]);
+        let tempTaskList = [...taskList, task];
+        localStorage.setItem("taskList", JSON.stringify(tempTaskList));
+        setTaskList(tempTaskList);
         setModal(false);
+    };
+
+    const updateListArray = (task) => {
+        let updatedList = taskList.map((current) => {
+            if(current.id === task.id) {
+                return {...current, title: task.title, description: task.description};
+            }
+            return current;
+        })
+        localStorage.setItem("taskList", JSON.stringify(updatedList));
+        setTaskList(updatedList);
+    }
+
+    const deleteTask = (id) => {
+        const newTaskList = taskList.filter(task => task.id !== id);
+        localStorage.setItem("taskList", JSON.stringify(newTaskList));
+        setTaskList(newTaskList);
     };
 
     return (
@@ -20,14 +46,11 @@ function TaskList() {
                 <h2>Digital Personal Assistant (DiPA)</h2>
                 <CreateTask onClick={() => setModal(true)}>Create Task</CreateTask>
             </Header>
-            <div>
-                {taskList.map((task, index) => 
-                    <div key={index}>
-                        <p>{task.title}</p>
-                        <p>{task.description}</p>
-                    </div>
+            <TaskContainer>
+                {taskList.map((task) => 
+                    <TaskItemCard key={task.id} taskObj={task} deleteTask={deleteTask} updateListArray={updateListArray} />
                 )}
-            </div>
+            </TaskContainer>
             <CreateTaskModal modal={modal} toggle={toggle} saveTask={saveTask} />
         </>
     )

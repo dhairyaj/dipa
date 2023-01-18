@@ -15,3 +15,11 @@ export const CreateTask = styled(Button)`
     background: linear-gradient(to right, teal, blue);
     margin-top: 1rem;
 `;
+
+export const TaskContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    min-height: 80vh;
+    padding: 1rem;
+`;
