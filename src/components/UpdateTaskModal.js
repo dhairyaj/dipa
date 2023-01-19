@@ -4,9 +4,11 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 function UpdateTaskModal({ modal, toggle, taskObj ,updateTask }) {
 
+    // Maintain state to set the task title and description
     const [taskTitle, settaskTitle] = useState('');
     const [description, setDescription] = useState('');
 
+    // Function to modify the value while typing
     const handleChange = (e) => {
         const { name, value } = e.target;
 
@@ -19,6 +21,7 @@ function UpdateTaskModal({ modal, toggle, taskObj ,updateTask }) {
         }
     };
 
+    // Function triggered to call the update task functionality
     const handleUpdate = (e) => {
         e.preventDefault();
         const updateTaskObj = {
@@ -31,10 +34,12 @@ function UpdateTaskModal({ modal, toggle, taskObj ,updateTask }) {
         setDescription("");
     }
 
+    // To set the values of task to be edited in the modal
+    // Called only once when the component is mounted
     useEffect(() => {
         settaskTitle(taskObj.title);
-        setDescription(taskObj.description);
-    }, []);
+        setDescription(taskObj.description); // eslint-disable-next-line
+    }, []); // eslint-disable-next-line
 
     return (
         <div>

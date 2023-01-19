@@ -3,10 +3,12 @@ import Form from 'react-bootstrap/Form';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 function CreateTaskModal({ modal, toggle, saveTask }) {
-
+    
+    // Maintain state to set the task title and description
     const [taskTitle, settaskTitle] = useState('');
     const [description, setDescription] = useState('');
 
+    // Function to modify the value while typing
     const handleChange = (e) => {
         const { name, value } = e.target;
 
@@ -19,6 +21,7 @@ function CreateTaskModal({ modal, toggle, saveTask }) {
         }
     };
 
+    // Function triggered to call the save task functionality
     const handleSaveTask = () => {
         const taskObj = {
             id: new Date().getTime().toString(),

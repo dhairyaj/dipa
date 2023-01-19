@@ -4,18 +4,21 @@ import { CreateTask, Header, TaskContainer } from './StyledComponents';
 import TaskItemCard from './TaskItemCard';
 
 function TaskList() {
-
+    // To toggle the modal state
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
 
+    // To set the list of task
     const [taskList, setTaskList] = useState([]);
 
+    // Load all the tasks from localstorage if any only on first load of page i.e. mounting
     useEffect(() => {
         if(localStorage.getItem("taskList")) {
             setTaskList(JSON.parse([localStorage.getItem("taskList")]));
         }
     }, []);
 
+    // To add the task to the list
     const saveTask = (task) => {
         let tempTaskList = [...taskList, task];
         localStorage.setItem("taskList", JSON.stringify(tempTaskList));
@@ -23,6 +26,7 @@ function TaskList() {
         setModal(false);
     };
 
+    // To update the task which was edited
     const updateListArray = (task) => {
         let updatedList = taskList.map((current) => {
             if(current.id === task.id) {
@@ -34,6 +38,7 @@ function TaskList() {
         setTaskList(updatedList);
     }
 
+    // To delete the task
     const deleteTask = (id) => {
         const newTaskList = taskList.filter(task => task.id !== id);
         localStorage.setItem("taskList", JSON.stringify(newTaskList));

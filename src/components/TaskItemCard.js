@@ -4,14 +4,16 @@ import UpdateTaskModal from './UpdateTaskModal';
 
 function TaskItemCard({ taskObj, deleteTask, updateListArray }) {
 
+    // To toggle the modal state
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
 
-
+    // Function triggered to call the delete task functionality
     const handleDeleteTask = () => {
         deleteTask(taskObj.id);
     }
 
+    // Function triggered to call the update task functionality
     const updateTask = (task) => {
         updateListArray(task);
         setModal(false);

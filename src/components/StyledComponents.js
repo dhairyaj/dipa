@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Button } from "react-bootstrap";
 
+// Styled components exported to all the files.
 export const Header = styled.div`
     text-align: center;
     height: 20vh;
